@@ -1,0 +1,44 @@
+<div class="glfform">
+  <form action="{site_admin_url}/plugins/smiley/index.php" method="post" id="newsmiley" enctype="multipart/form-data">
+    <input type="hidden" name="mode" value="{mode}" />
+    <input type="hidden" name="id" value="{id}" />
+    <fieldset style="margin-top:10px;">
+      <div>
+        <label for="graphic">{$LANG_SA00[graphic]}:&nbsp;</label>
+        {!if smiley_graphic}
+          {smiley_graphic}
+        {!else}
+          <input type="file" name="graphic" id="graphic" value="" size="65" />
+        {!endif}
+      </div>
+      <div>
+        <label for="emoticon">{$LANG_SA00[code]}:&nbsp;</label>
+        <input type="text" size="15" maxlength="15" value="{emoticon}" name="emoticon" id="emoticon" />
+      </div>
+      <div>
+        <label for="emoticon">{$LANG_SA00[code]}:&nbsp;</label>
+        <input type="text" size="15" maxlength="15" value="{emoticon1}" name="emoticon1" id="emoticon1" />
+      </div>
+      <div>
+        <label for="emoticon">{$LANG_SA00[code]}:&nbsp;</label>
+        <input type="text" size="15" maxlength="15" value="{emoticon2}" name="emoticon2" id="emoticon2" />
+      </div>
+      <div>
+        <label for="emoticon">{$LANG_SA00[code]}:&nbsp;</label>
+        <input type="text" size="15" maxlength="15" value="{emoticon3}" name="emoticon3" id="emoticon3" />
+      </div>
+      <div>
+        <label for="description">{$LANG_SA00[description]}:&nbsp;</label>
+        <input type="text" size="65" maxlength="100" value="{description}" name="description" id="description" />
+      </div>
+      <div>
+        <label for="order">{$LANG_SA00[order]}:&nbsp;</label>
+        {order_select}
+      </div>
+    </fieldset>
+    <div style="text-align:center;">
+      <input type="submit" value="{$LANG_SA00[save]}" name="submit" />&nbsp;&nbsp;
+      <input type="submit" value="{$LANG_SA00[cancel]}" name="cancel" />
+    </div>
+  </form>
+</div>
