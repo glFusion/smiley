@@ -466,17 +466,20 @@ function batchLoadSmiley()
     // check to see if we can write
     $rc = COM_isWritable($_CONF['path_html'].'smiley/smiley/');
     if ( $rc != true ) {
-        $retval = $_CONF['path_html'].$LANG_SA_ERRORS['not_writable'];
+        $retval = SA_msgBox($_CONF['path_html'].$LANG_SA_ERRORS['not_writable']);
+        $retval .= listSmiley();
         return $retval;
     }
 
     $directory = $_CONF['path'].'plugins/smiley/batchload/';
 
     if (!@is_dir($directory)) {
-        return(SA_msgBox( $LANG_SA_ERRORS['import_dir_err'] . '<br />' ));
+        $retval = SA_msgBox( $LANG_SA_ERRORS['import_dir_err']);
+        $retval .= listSmiley();
     }
     if (!$dh = @opendir($directory)) {
-        return(SA_msgBox( $LANG_SA_ERRORS['import_dir_err'] . '<br />' ));
+        $retval = SA_msgBox( $LANG_SA_ERRORS['import_dir_err']);
+        $retval .= listSmiley();
     }
 
     $T = new Template($_CONF['path'] . 'plugins/smiley/templates/');
