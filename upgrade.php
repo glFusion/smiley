@@ -2,7 +2,9 @@
 // +--------------------------------------------------------------------------+
 // | Smiley Plugin for glFusion CMS                                           |
 // +--------------------------------------------------------------------------+
-// | smiley.php                                                               |
+// | upgrade.php                                                              |
+// |                                                                          |
+// | Upgrade routines                                                         |
 // +--------------------------------------------------------------------------+
 // | $Id::                                                                   $|
 // +--------------------------------------------------------------------------+
@@ -27,17 +29,31 @@
 // |                                                                          |
 // +--------------------------------------------------------------------------+
 
+// this file can't be used on its own
 if (!defined ('GVERSION')) {
     die ('This file can not be used on its own.');
 }
 
-$_SA_CONF['pi_name']           = 'smiley';
-$_SA_CONF['pi_display_name']   = 'Smiley Administration Plugin';
-$_SA_CONF['pi_version']        = '1.0.1';
-$_SA_CONF['gl_version']        = '1.1.5';
-$_SA_CONF['pi_url']            = 'http://www.glfusion.org';
+function smiley_upgrade()
+{
+    global $_TABLES, $_CONF, $_SA_CONF, $_DB_table_prefix;
 
-$_SA_table_prefix = $_DB_table_prefix . 'sa_';
+    $currentVersion = DB_getItem($_TABLES['plugins'],'pi_version',"pi_name='smiley'");
 
-$_TABLES['sa_smiley']       = $_SA_table_prefix . 'smiley';
+    switch ($currentVersion) {
+        case '1.0.0' :
+            // no DB updates...fallthru to default handler
+        default:
+            DB_query("UPDATE {$_TABLES['plugins']} SET pi_version='".$_SA_CONF['pi_version']."',pi_gl_version='".$_SA_CONF['gl_version']."' WHERE pi_name='smiley' LIMIT 1");
+            break;
+    }
+
+    CTL_clearCache();
+
+    if ( DB_getItem($_TABLES['plugins'],'pi_version',"pi_name='smiley'") == $_SA_CONF['pi_version']) {
+        return true;
+    } else {
+        return false;
+    }
+}
 ?>

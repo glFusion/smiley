@@ -1,5 +1,11 @@
 ChangeLog
 
+v1.0.1
+------
+- Added $wysiwyg parameter to set javascript properly when using the
+  WYSIWYG editor
+- German translations provided by Tony Kluever
+
 v1.0.0
 ------
 - Initial Release

@@ -187,7 +187,7 @@ function msg_restoreEmoticons( $text ) {
 * @return   string          text with available smileys
 *
 */
-function msg_showsmilies()
+function msg_showsmilies($wysiwyg = 0)
 {
     global $_TABLES,$_CONF,$_SA_CONF;
 
@@ -200,8 +200,14 @@ function msg_showsmilies()
             $emoticonsArray[$graphic]['code'] = $emoticons[0];
         }
     }
+    if ( $wysiwyg ) {
+        $emoticonjs = 'emoticon_wysiwyg';
+    } else {
+        $emoticonjs = 'emoticon';
+    }
+
     foreach ($emoticonsArray as $key => $smiley) {
-        $smilies .= '<a href="javascript:emoticon(\'' .$smiley['code'].'\')"><img vspace="1" src="' .$_CONF['site_url'].'/smiley/smiley/'. $key. '" alt="' . $smiley['desc']. '" title="' .$smiley['desc']. '" border="0" /></a> ';
+        $smilies .= '<a href="javascript:'.$emoticonjs.'(\'' .$smiley['code'].'\')"><img vspace="1" src="' .$_CONF['site_url'].'/smiley/smiley/'. $key. '" alt="' . $smiley['desc']. '" title="' .$smiley['desc']. '" border="0" /></a> ';
     }
     return $smilies;
 }
