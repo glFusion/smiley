@@ -1,5 +1,9 @@
 ChangeLog
 
+v1.0.2
+------
+- Fixed duplicate smiley
+
 v1.0.1
 ------
 - Added $wysiwyg parameter to set javascript properly when using the
