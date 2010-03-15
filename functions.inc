@@ -151,7 +151,7 @@ function SA_cmp($a, $b)
 *
 */
 function msg_restoreEmoticons( $text ) {
-    global $_SA_CONF, $_TABLES;
+    global $_CONF, $_SA_CONF, $_TABLES;
 
     static $arr_smilies;
 
@@ -190,6 +190,8 @@ function msg_restoreEmoticons( $text ) {
 function msg_showsmilies($wysiwyg = 0)
 {
     global $_TABLES,$_CONF,$_SA_CONF;
+
+    $smilies = '';
 
     $emoticonsArray = array();
     $query = DB_query("SELECT id,emoticon,graphic,description FROM {$_TABLES['sa_smiley']} ORDER BY display_order ASC");
