@@ -60,7 +60,7 @@ function listSmiley()
               'text' => $LANG_ADMIN['admin_home'])
     );
 
-    $retval .= COM_startBlock($LANG_SA00['menulabe'], '',
+    $retval .= COM_startBlock($LANG_SA00['menulabel'], '',
                               COM_getBlockTemplate('_admin_block', 'header'));
 
     $retval .= ADMIN_createMenu(
