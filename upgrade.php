@@ -42,6 +42,7 @@ function smiley_upgrade()
 
     switch ($currentVersion) {
         case '1.0.0' :
+        case '1.0.1' :
             // no DB updates...fallthru to default handler
         default:
             DB_query("UPDATE {$_TABLES['plugins']} SET pi_version='".$_SA_CONF['pi_version']."',pi_gl_version='".$_SA_CONF['gl_version']."' WHERE pi_name='smiley' LIMIT 1");

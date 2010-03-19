@@ -30,6 +30,7 @@
 // +--------------------------------------------------------------------------+
 
 require_once '../../../lib-common.php';
+require_once '../../auth.inc.php';
 
 if (!SEC_inGroup('Root')) {
     // Someone is trying to illegally access this page
@@ -319,7 +320,7 @@ function addSmileySave()
                 $emoticons[] = $emoticon3;
             }
 
-            $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".addslashes($filename)."', emoticon='".serialize($emoticons)."', description='".addslashes($description)."'";
+            $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".DB_escapeString($filename)."', emoticon='".serialize($emoticons)."', description='".DB_escapeString($description)."'";
             DB_query($sql);
         }
     }
@@ -426,7 +427,7 @@ function editSmileySave()
     if ( $emoticon3 != '' ) {
         $emoticons[] = $emoticon3;
     }
-    $sql = "UPDATE {$_TABLES['sa_smiley']} SET emoticon='".serialize($emoticons)."', description='".addslashes($description)."', display_order='".intval($order)."' WHERE id=".intval($id);
+    $sql = "UPDATE {$_TABLES['sa_smiley']} SET emoticon='".serialize($emoticons)."', description='".DB_escapeString($description)."', display_order='".intval($order)."' WHERE id=".intval($id);
 
     DB_query($sql);
 
@@ -582,7 +583,7 @@ function saveBatchLoadSmiley()
                     $emoticons[1] = '';
                     $emoticons[2] = '';
                     $emoticons[3] = '';
-                    $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".addslashes($graphic)."', emoticon='".serialize($emoticons)."', description='".addslashes($emotion)."', display_order=".$order;
+                    $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".DB_escapeString($graphic)."', emoticon='".serialize($emoticons)."', description='".DB_escapeString($emotion)."', display_order=".$order;
                     DB_query($sql);
                     @unlink($_CONF['path'].'plugins/smiley/batchload/'.$graphic);
                     $order += 5;

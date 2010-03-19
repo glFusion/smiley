@@ -2,8 +2,8 @@
     <id>smiley</id>
     <name>Smiley Plugin</name>
     <description>Allows you to add smileys to your forum</description>
-    <version>1.0.1</version>
-    <glfusionversion>1.1.5</glfusionversion>
+    <version>1.0.2</version>
+    <glfusionversion>1.1.9</glfusionversion>
     <phpversion>4.3.0</phpversion>
     <url>http://www.glfusion.org</url>
     <maintainer>Mark R. Evans</maintainer>

@@ -2,6 +2,7 @@ ChangeLog
 
 v1.0.2
 ------
+- Implemented new glFusion admin authentication
 - Fixed duplicate smiley
 
 v1.0.1
