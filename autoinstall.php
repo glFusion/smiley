@@ -46,7 +46,8 @@ $INSTALL_plugin['smiley'] = array(
     'installer' => array('type' => 'installer', 'version' => '1', 'mode' => 'install'),
     'plugin' => array('type' => 'plugin', 'name' => $_SA_CONF['pi_name'], 'ver' => $_SA_CONF['pi_version'], 'gl_ver' => $_SA_CONF['gl_version'], 'url' => $_SA_CONF['pi_url'], 'display' => $_SA_CONF['pi_display_name']),
     array('type' => 'table', 'table' => $_TABLES['sa_smiley'], 'sql' => $_SQL['sa_smiley']),
-    array('type' => 'group', 'group' => 'Smiley Admin', 'desc' => 'Administrators of the Smiley Plugin', 'variable' => 'admin_group_id', 'addroot' => true),
+    array('type' => 'group', 'group' => 'Smiley Admin', 'desc' => 'Administrators of the Smiley Plugin',
+            'variable' => 'admin_group_id', 'addroot' => true, 'admin' => true),
     array('type' => 'feature', 'feature' => 'smiley.admin', 'desc' => 'Ability to administer the Smiley plugin', 'variable' => 'admin_feature_id'),
     array('type' => 'mapping', 'group' => 'admin_group_id', 'feature' => 'admin_feature_id', 'log' => 'Adding PM feature to the PM admin group'),
 
