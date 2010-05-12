@@ -1,5 +1,10 @@
 ChangeLog
 
+v1.0.3
+------
+- Implemented new admin list interface to allow batch delete
+- Import of smileys stripped the colon off the emotion
+
 v1.0.2
 ------
 - Implemented new glFusion admin authentication

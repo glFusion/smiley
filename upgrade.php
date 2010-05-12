@@ -8,7 +8,7 @@
 // +--------------------------------------------------------------------------+
 // | $Id::                                                                   $|
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009 by the following authors:                             |
+// | Copyright (C) 2009-2010 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -43,6 +43,7 @@ function smiley_upgrade()
     switch ($currentVersion) {
         case '1.0.0' :
         case '1.0.1' :
+        case '1.0.2' :
             DB_query("UPDATE {$_TABLES['groups']} SET grp_gl_core=2 WHERE grp_name='Smiley Admin'",1);
         default:
             DB_query("UPDATE {$_TABLES['plugins']} SET pi_version='".$_SA_CONF['pi_version']."',pi_gl_version='".$_SA_CONF['gl_version']."' WHERE pi_name='smiley' LIMIT 1");

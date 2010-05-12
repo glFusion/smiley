@@ -8,7 +8,7 @@
 // +--------------------------------------------------------------------------+
 // | $Id::                                                                   $|
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009 by the following authors:                             |
+// | Copyright (C) 2009-2010 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -71,14 +71,21 @@ function listSmiley()
     );
 
     $header_arr = array(
-        array('text' => $LANG_SA00['edit'],'field' => 'edit', 'sort' => false),
-
-        array('text' => $LANG_SA00['graphic'], 'field' => 'graphic'),
+        array('text' => $LANG_SA00['edit'],'field' => 'edit', 'align' => 'center', 'sort' => false),
+        array('text' => $LANG_SA00['graphic'], 'field' => 'graphic', 'align' => 'center'),
         array('text' => $LANG_SA00['code'], 'field' => 'emoticon'),
         array('text' => $LANG_SA00['description'], 'field' => 'description'),
-        array('text' => $LANG_SA00['move'], 'field' => 'move', 'sort' => false),
-        array('text' => $LANG_SA00['delete'], 'field' => 'delete', 'sort' => false),
+        array('text' => $LANG_SA00['move'], 'field' => 'move', 'align' => 'center','sort' => false),
+        array('text' => $LANG_SA00['delete'], 'field' => 'delete', 'align' => 'center', 'sort' => false),
     );
+
+    $options = array('chkselect' => true,
+                     'chkfield' => 'id',
+                     'chkname' => 'selitem',
+                     'chkminimum' => 0,
+                     'chkall' => true,
+                     'chkactions' => $actions
+                     );
 
     $data_arr = array();
     $text_arr = array();
@@ -100,7 +107,7 @@ function listSmiley()
                        'default_filter' => '');
 
     $retval .= ADMIN_list('smiley', 'ADMIN_getListField_smiley', $header_arr,
-                          $text_arr, $query_arr, $defsort_arr);
+                          $text_arr, $query_arr, $defsort_arr,'','',$options);
 
     $retval .= COM_endBlock(COM_getBlockTemplate('_admin_block', 'footer'));
     return $retval;
@@ -108,21 +115,27 @@ function listSmiley()
 
 function ADMIN_getListField_smiley($fieldname, $fieldvalue, $A, $icon_arr)
 {
-    global $_CONF, $_SA_CONF, $LANG_SA00;
+    global $_CONF, $_SA_CONF, $LANG_SA00, $LANG_ADMIN;
 
     $retval = '';
 
     switch ($fieldname) {
-        case 'edit' :
-            $editLink = '<a href="'.$_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=edit&amp;id='.$A['id'].'"><img src="'.$_CONF['site_admin_url'].'/plugins/smiley/images/edit.png" alt="'.$LANG_SA00['edit'].'" /></a>';
-            $retval = $editLink;
+        case 'edit':
+            $retval = COM_createLink($icon_arr['edit'], $_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=edit&amp;id='.$A['id']);
             break;
+
+//            $editLink = '<a href="'.$_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=edit&amp;id='.$A['id'].'"><img src="'.$_CONF['site_admin_url'].'/plugins/smiley/images/edit.png" alt="'.$LANG_SA00['edit'].'" /></a>';
+//            $retval = $editLink;
+//            break;
         case 'graphic' :
             $retval = '<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$fieldvalue.'" alt="'.$A['description'].'" title="'.$A['description'].'" />';
             break;
         case 'delete' :
-            $deleteLink = '<a href="'.$_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=delete&amp;id='.$A['id'].'" onclick="return confirm(\''.$LANG_SA00['confirm_delete'].'\');"><img src="'.$_CONF['site_admin_url'].'/plugins/smiley/images/delete.png" alt="'.$LANG_SA00['delete'].'" /></a>';
-            $retval = $deleteLink;
+            $attr['title'] = $LANG_ADMIN['delete'];
+            $attr['onclick'] = "return confirm('" . $LANG_SA00['confirm_delete'] . "');";
+            $retval = COM_createLink($icon_arr['delete'],
+                $_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=delete&amp;id='.$A['id'],
+                $attr);
             break;
         case 'emoticon' :
             $emoticons = unserialize($fieldvalue);
@@ -557,9 +570,9 @@ function saveBatchLoadSmiley()
     if ( isset($_POST['import']) && is_array($_POST['import']) ) {
         foreach ($_POST['import'] as $graphic) {
             $graphic = COM_applyFilter($graphic);
-            $index = str_replace('.','_',$graphic);
-            $code = COM_applyFilter($_POST['code_' . $index]);
-            $emotion = COM_applyFilter($_POST['emotion_' . $index]);
+            $index   = str_replace('.','_',$graphic);
+            $code    = COM_stripslashes($_POST['code_' . $index]);
+            $emotion = COM_stripslashes($_POST['emotion_' . $index]);
 
             if ( $code == '' ) {
                 $errors .= $LANG_SA_ERRORS['no_graphic'] . ' ('.$graphic.')<br />';
@@ -579,7 +592,7 @@ function saveBatchLoadSmiley()
                 if ( $rc == true ) {
                     @chmod($graphic,$_CONF['path_html'].'smiley/smiley/'.$graphic,0666);
                     $emoticons = array();
-                    $emoticons[0] = $emotion;
+                    $emoticons[0] = $code;
                     $emoticons[1] = '';
                     $emoticons[2] = '';
                     $emoticons[3] = '';
@@ -673,8 +686,45 @@ function orderList( $id = '' )
 }
 
 
-$display = COM_siteHeader();
+/**
+* Moderates a list of items as defined by the 'chkall' action
+*
+* This will actually perform moderation (approve or delete) one or more items
+*
+* @param    string  $action     Action to perform ('delete' or 'approve')
+* @return   string              HTML for "command and control" page
+*
+*/
+function SMILEY_selectedItems($action = '')
+{
+    global $_CONF, $_TABLES, $LANG_SA_ERRORS;
 
+    $retval = '';
+
+    $item = (isset($_POST['selitem'])) ? $_POST['selitem'] : array();
+
+    if (isset($item) AND is_array($item)) {
+        foreach($item as $selitem) {
+            $id = COM_applyFilter($selitem);
+            if (empty($id)) {
+                return $retval; // null id - make an early exit!
+            }
+            if ( $action == 'delete' ) {
+                $graphic = DB_getItem($_TABLES['sa_smiley'],'graphic','id='.(int) $id);
+                if ( $graphic != '' ) {
+                    @unlink($_CONF['path_html'].'smiley/smiley/'.$graphic);
+                }
+                DB_delete($_TABLES['sa_smiley'],'id',(int)$id);
+            }
+        }
+    }
+
+    $retval = SA_msgBox($LANG_SA_ERRORS['successful_delete']);
+
+    return $retval;
+}
+
+$display = COM_siteHeader();
 
 $mode = '';
 if ( isset($_GET['mode']) ) {
@@ -683,11 +733,19 @@ if ( isset($_GET['mode']) ) {
     $mode = COM_applyFilter($_POST['mode']);
 }
 
+if ( isset($_POST['delbutton_x'] ) ) {
+    $mode = 'delbutton_x';
+}
+
 if ( isset($_POST['cancel']) ) {
     $mode = '';
 }
 
 switch ( $mode ) {
+    case 'delbutton_x' :
+        $display .= SMILEY_selectedItems('delete');
+        $display .= listSmiley();
+        break;
     case 'import' :
         $display .= batchLoadSmiley();
         break;
