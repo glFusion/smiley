@@ -1,5 +1,9 @@
 ChangeLog
 
+v1.0.4
+------
+- Fixed errors when include apostrophe in emoticon code field
+
 v1.0.3
 ------
 - Implemented new admin list interface to allow batch delete

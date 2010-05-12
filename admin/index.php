@@ -123,10 +123,6 @@ function ADMIN_getListField_smiley($fieldname, $fieldvalue, $A, $icon_arr)
         case 'edit':
             $retval = COM_createLink($icon_arr['edit'], $_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=edit&amp;id='.$A['id']);
             break;
-
-//            $editLink = '<a href="'.$_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=edit&amp;id='.$A['id'].'"><img src="'.$_CONF['site_admin_url'].'/plugins/smiley/images/edit.png" alt="'.$LANG_SA00['edit'].'" /></a>';
-//            $retval = $editLink;
-//            break;
         case 'graphic' :
             $retval = '<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$fieldvalue.'" alt="'.$A['description'].'" title="'.$A['description'].'" />';
             break;
@@ -139,7 +135,11 @@ function ADMIN_getListField_smiley($fieldname, $fieldvalue, $A, $icon_arr)
             break;
         case 'emoticon' :
             $emoticons = unserialize($fieldvalue);
-            $retval = implode('  ',$emoticons);
+            if ( is_array($emoticons) ) {
+                $retval = implode('  ',$emoticons);
+            } else {
+                $retval = $emoticons;
+            }
             break;
         case 'move' :
             $uplink = '<a href="'.$_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=move&amp;direction=up&amp;id='.$A['id'].'"><img src="'.$_CONF['site_admin_url'].'/plugins/smiley/images/up.png" alt="'.$LANG_SA00['up'].'" /></a>';
@@ -305,20 +305,20 @@ function addSmileySave()
             return array(false,$retval);
         } else {
             $retval = $LANG_SA_ERRORS['successful_add'];
-            $emoticon = $_POST['emoticon'];
-            $description = $_POST['description'];
+            $emoticon = COM_stripslashes($_POST['emoticon']);
+            $description = COM_stripslashes($_POST['description']);
 
             $emoticon1 = '';
             $emoticon2 = '';
             $emoticon3 = '';
             if ( isset($_POST['emoticon1']) && $_POST['emoticon1'] != '' ) {
-                $emoticon1 = $_POST['emoticon1'];
+                $emoticon1 = COM_stripslashes($_POST['emoticon1']);
             }
             if ( isset($_POST['emoticon2']) && $_POST['emoticon2'] != '' ) {
-                $emoticon2 = $_POST['emoticon2'];
+                $emoticon2 = COM_stripslashes($_POST['emoticon2']);
             }
             if ( isset($_POST['emoticon3']) && $_POST['emoticon3'] != '' ) {
-                $emoticon3 = $_POST['emoticon3'];
+                $emoticon3 = COM_stripslashes($_POST['emoticon3']);
             }
 
             $emoticons = array();
@@ -333,7 +333,7 @@ function addSmileySave()
                 $emoticons[] = $emoticon3;
             }
 
-            $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".DB_escapeString($filename)."', emoticon='".serialize($emoticons)."', description='".DB_escapeString($description)."'";
+            $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".DB_escapeString($filename)."', emoticon='".DB_escapeString(serialize($emoticons))."', description='".DB_escapeString($description)."'";
             DB_query($sql);
         }
     }
@@ -380,7 +380,11 @@ function editSmiley($id)
 
     $emoticons = array();
     $emoticons = unserialize($row['emoticon']);
-    $emoticon = implode(' ', $emoticons);
+    if ( is_array($emoticons) ) {
+        $emoticon = implode(' ', $emoticons);
+    } else {
+        $emoticon = '';
+    }
 
     $T->set_var(array(
         'smiley_graphic' => '<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$row['graphic'].'" />',
@@ -412,21 +416,21 @@ function editSmileySave()
     global $_CONF, $_SA_CONF, $_TABLES, $LANG_ADMIN;
 
     $id          = COM_applyFilter($_POST['id'],true);
-    $emoticon    = $_POST['emoticon'];
-    $description = $_POST['description'];
+    $emoticon    = COM_stripslashes($_POST['emoticon']);
+    $description = COM_stripslashes($_POST['description']);
     $order       = COM_applyFilter($_POST['order'],true);
 
     $emoticon1 = '';
     $emoticon2 = '';
     $emoticon3 = '';
     if ( isset($_POST['emoticon1']) && $_POST['emoticon1'] != '' ) {
-        $emoticon1 = $_POST['emoticon1'];
+        $emoticon1 = COM_stripslashes($_POST['emoticon1']);
     }
     if ( isset($_POST['emoticon2']) && $_POST['emoticon2'] != '' ) {
-        $emoticon2 = $_POST['emoticon2'];
+        $emoticon2 = COM_stripslashes($_POST['emoticon2']);
     }
     if ( isset($_POST['emoticon3']) && $_POST['emoticon3'] != '' ) {
-        $emoticon3 = $_POST['emoticon3'];
+        $emoticon3 = COM_stripslashes($_POST['emoticon3']);
     }
 
     $emoticons = array();
@@ -440,7 +444,7 @@ function editSmileySave()
     if ( $emoticon3 != '' ) {
         $emoticons[] = $emoticon3;
     }
-    $sql = "UPDATE {$_TABLES['sa_smiley']} SET emoticon='".serialize($emoticons)."', description='".DB_escapeString($description)."', display_order='".intval($order)."' WHERE id=".intval($id);
+    $sql = "UPDATE {$_TABLES['sa_smiley']} SET emoticon='".DB_escapeString(serialize($emoticons))."', description='".DB_escapeString($description)."', display_order='".intval($order)."' WHERE id=".(int) $id;
 
     DB_query($sql);
 
@@ -596,7 +600,7 @@ function saveBatchLoadSmiley()
                     $emoticons[1] = '';
                     $emoticons[2] = '';
                     $emoticons[3] = '';
-                    $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".DB_escapeString($graphic)."', emoticon='".serialize($emoticons)."', description='".DB_escapeString($emotion)."', display_order=".$order;
+                    $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".DB_escapeString($graphic)."', emoticon='".DB_escapeString(serialize($emoticons))."', description='".DB_escapeString($emotion)."', display_order=".$order;
                     DB_query($sql);
                     @unlink($_CONF['path'].'plugins/smiley/batchload/'.$graphic);
                     $order += 5;
