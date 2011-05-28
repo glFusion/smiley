@@ -1,4 +1,4 @@
-<div class="glfform">
+<div class="input-form">
   <form action="{site_admin_url}/plugins/smiley/index.php" method="post" id="newsmiley" enctype="multipart/form-data">
     <input type="hidden" name="mode" value="{mode}" />
     <input type="hidden" name="id" value="{id}" />

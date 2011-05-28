@@ -6,7 +6,7 @@
 // |                                                                          |
 // | Contains all the SQL necessary to install the Smiley plugin              |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009 by the following authors:                             |
+// | Copyright (C) 2009-2011 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -38,7 +38,7 @@ $_SQL['sa_smiley']  = "CREATE TABLE {$_TABLES['sa_smiley']} (
   description varchar(250) NOT NULL,
   display_order int(8) NOT NULL default '0',
   PRIMARY KEY (id)
-) TYPE=MyISAM;";
+) ENGINE=MyISAM;";
 
 $_SQLDEFAULTS[0]  = "INSERT INTO {$_TABLES['sa_smiley']} VALUES(1, 'a:1:{i:0;s:7:\":arrow:\";}', 'arrow.gif', 'Arrow', 185);";
 $_SQLDEFAULTS[1]  = "INSERT INTO {$_TABLES['sa_smiley']} VALUES(2, 'a:2:{i:0;s:2:\"B)\";i:1;s:2:\"8)\";}', 'cool.gif', 'Cool', 40);";

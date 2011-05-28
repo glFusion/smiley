@@ -84,7 +84,7 @@ function listSmiley()
                      'chkname' => 'selitem',
                      'chkminimum' => 0,
                      'chkall' => true,
-                     'chkactions' => $actions
+                     'chkactions' => ''
                      );
 
     $data_arr = array();
