@@ -8,7 +8,7 @@
 // +--------------------------------------------------------------------------+
 // | $Id::                                                                   $|
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2010 by the following authors:                        |
+// | Copyright (C) 2009-2012 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -399,7 +399,7 @@ function editSmiley($id)
     $i = 1;
     $x = count($emoticons);
     for ($z = 1; $z < $x; $z++ ) {
-        $T->set_var('emoticon'.$i , $emoticons[$z]);
+        $T->set_var('emoticon'.$i , @htmlentities($emoticons[$z],ENT_QUOTES,COM_getEncodingt()));
         $i++;
     }
 
