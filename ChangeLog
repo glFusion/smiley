@@ -1,5 +1,9 @@
 ChangeLog
 ---------
+v1.0.6
+------
+- Found some additional areas where characters were not properly
+  escaped.
 v1.0.5
 ------
 - Fixed error where some characters were not properly escaped

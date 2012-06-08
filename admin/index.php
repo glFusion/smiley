@@ -347,7 +347,7 @@ function editSmiley($id)
 
     $retval = '';
 
-    $result = DB_query("SELECT * FROM {$_TABLES['sa_smiley']} WHERE id=".intval($id));
+    $result = DB_query("SELECT * FROM {$_TABLES['sa_smiley']} WHERE id=".(int) $id);
     if ( DB_numRows($result) > 0 ) {
         $row = DB_fetchArray($result);
     } else {
@@ -388,9 +388,9 @@ function editSmiley($id)
 
     $T->set_var(array(
         'smiley_graphic' => '<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$row['graphic'].'" />',
-        'emoticon'       => $emoticons[0],
+        'emoticon'       => htmlentities($emoticons[0],ENT_QUOTES,COM_getEncodingt()),
         'description'    => $row['description'],
-        'id'             => intval($id),
+        'id'             => (int) $id,
         'order'          => $row['display_order'],
         'order_select'   => orderList($id),
         'mode'           => 'editsave',
