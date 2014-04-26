@@ -4,9 +4,7 @@
 // +--------------------------------------------------------------------------+
 // | smiley.php                                                               |
 // +--------------------------------------------------------------------------+
-// | $Id::                                                                   $|
-// +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2012 by the following authors:                        |
+// | Copyright (C) 2009-2014 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -33,8 +31,8 @@ if (!defined ('GVERSION')) {
 
 $_SA_CONF['pi_name']           = 'smiley';
 $_SA_CONF['pi_display_name']   = 'Smiley Administration Plugin';
-$_SA_CONF['pi_version']        = '1.0.6';
-$_SA_CONF['gl_version']        = '1.2.0';
+$_SA_CONF['pi_version']        = '1.0.7';
+$_SA_CONF['gl_version']        = '1.4.0';
 $_SA_CONF['pi_url']            = 'http://www.glfusion.org';
 
 $_SA_table_prefix = $_DB_table_prefix . 'sa_';

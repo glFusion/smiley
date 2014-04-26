@@ -1,5 +1,9 @@
 ChangeLog
 ---------
+v1.0.7
+------
+- Added support for integrating with the ckeditor
+
 v1.0.6
 ------
 - Found some additional areas where characters were not properly

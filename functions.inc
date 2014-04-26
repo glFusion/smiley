@@ -6,9 +6,7 @@
 // |                                                                          |
 // | Implement the glFusion Plugin API                                        |
 // +--------------------------------------------------------------------------+
-// | $Id::                                                                   $|
-// +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2010 by the following authors:                        |
+// | Copyright (C) 2009-2014 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -90,8 +88,52 @@ function plugin_cclabel_smiley()
     } else {
         return false;
     }
-
 }
+
+/**
+ * Set template variable
+ *
+ * This plugin uses the 'templatesetvars' hook to insert the smiley
+ * configuration code for the CKEditor or TinyMCE editor
+ *
+ * @param   string  Template type - only processes ckeditor or tinymce
+ * @param   class   Template class handle
+ * @return  string  blank
+ */
+function plugin_templatesetvars_smiley($ctype, &$template)
+{
+    global $_CONF, $_SA_CONF, $_TABLES;
+
+    if ( $ctype != 'ckeditor') return;
+
+    $smileyArray = array();
+    $retval = '';
+
+    $retval .= 'smiley_columns : 6,' . LB;
+    $sql = "SELECT * FROM {$_TABLES['sa_smiley']} ORDER BY display_order";
+    $result = DB_query($sql);
+    while ( $row = DB_fetchArray($result) ) {
+        $smileyArray[] = $row;
+    }
+    $retval .=  'smiley_descriptions : [';
+    foreach ($smileyArray AS $smiley) {
+        $retval .= "'" . $smiley['description'] . "',";
+    }
+    $retval .= '],' . LB;
+
+    $retval .= 'smiley_images : [';
+    foreach ($smileyArray AS $smiley) {
+        $retval .= "'" . $smiley['graphic'] . "',";
+    }
+    $retval .= '],' . LB;
+    $retval .= "smiley_path : '";
+    $retval .= $_CONF['site_url'].'/smiley/smiley/';
+    $retval .= "',";
+
+    $template->set_var(array('smilies'   => $retval));
+}
+
+
 
 /**
 * Implement replace Emoticon API
