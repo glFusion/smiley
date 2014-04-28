@@ -1,5 +1,10 @@
 ChangeLog
 ---------
+v1.0.8
+------
+- Fixed the status message display to use the standard glFusion
+  message box.
+
 v1.0.7
 ------
 - Added support for integrating with the ckeditor
