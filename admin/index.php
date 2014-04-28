@@ -6,7 +6,7 @@
 // |                                                                          |
 // | Administrative interface                                                 |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2013 by the following authors:                        |
+// | Copyright (C) 2009-2014 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -621,10 +621,7 @@ function SA_msgBox($message)
 {
     $retval = '';
 
-    $retval .= COM_startBlock ('Error', '', COM_getBlockTemplate ('_msg_block', 'header'));
-    $retval .= $message;
-    $retval .= COM_endBlock (COM_getBlockTemplate ('_msg_block','footer'));
-
+    $retval.= COM_showMessageText($message, false, '', 'info' );
     return $retval;
 }
 
