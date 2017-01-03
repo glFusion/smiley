@@ -1,38 +1,38 @@
 <form action="{form_action_url}" method="post">
-<input type="hidden" name="mode" value="importsave" />
-  <table class="admin-list-table">
-    <tr style="background:#FFFFFF;">
-      <th class="admin-list-headerfield" >{$LANG_SA00[import]}</th>
-      <th class="admin-list-headerfield" >{$LANG_SA00[graphic]}</th>
-      <th class="admin-list-headerfield" >{$LANG_SA00[code]}</th>
-      <th class="admin-list-headerfield" >{$LANG_SA00[description]}</th>
-    </tr>
-    <!-- BEGIN importrow -->
-    <tr class="pluginRow{class}" onmouseover="className='pluginRollOver';" onmouseout="className='pluginRow{class}';">
-      <td class="admin-list-field">
-        <input type="checkbox" name="import[]" value="{graphic}" />
-      </td>
-      <td class="admin-list-field">
-        <img src="{site_url}/smiley/preview.php?f={graphic}" alt="{graphic}" title="{graphic}" />
-      </td>
-      <td class="admin-list-field">
-        <input type="text" name="code_{index}" value="" size="10" maxlength="10" />
-      </td>
-      <td class="admin-list-field">
-        <input type="text" name="emotion_{index}" value="" size="10" maxlength="200" />
-      </td>
-    </tr>
-    <!-- END importrow -->
-    {!if no_smileys_found}
-      <tr>
-        <td colspan="4" align="center">
-          <strong>{no_smileys_found}</strong>
-        </td>
-      </tr>
-    {!endif}
-  </table>
-  <div style="text-align:center;padding-top:10px;">
-    <input type="submit" name="submit" value="{$LANG_SA00[save]}" />&nbsp;&nbsp;
-    <input type="submit" name="cancel" value="{$LANG_SA00[cancel]}" />
-  </div>
+	<input type="hidden" name="mode" value="importsave" />
+	<table class="admin-list-table">
+		<tr style="background:#FFFFFF;">
+			<th class="admin-list-headerfield" >{$LANG_SA00[import]}</th>
+			<th class="admin-list-headerfield" >{$LANG_SA00[graphic]}</th>
+			<th class="admin-list-headerfield" >{$LANG_SA00[code]}</th>
+			<th class="admin-list-headerfield" >{$LANG_SA00[description]}</th>
+		</tr>
+<!-- BEGIN importrow -->
+		<tr class="pluginRow{class}" onmouseover="className='pluginRollOver';" onmouseout="className='pluginRow{class}';">
+			<td class="admin-list-field">
+				<input type="checkbox" name="import[]" value="{graphic}" />
+			</td>
+			<td class="admin-list-field">
+				<img src="{site_url}/smiley/preview.php?f={graphic}" alt="{graphic}" title="{graphic}" />
+			</td>
+			<td class="admin-list-field">
+				<input type="text" name="code_{index}" value="" size="10" maxlength="10" />
+			</td>
+			<td class="admin-list-field">
+				<input type="text" name="emotion_{index}" value="" size="10" maxlength="200" />
+			</td>
+		</tr>
+<!-- END importrow -->
+{!if no_smileys_found}
+		<tr>
+			<td colspan="4" align="center">
+				<strong>{no_smileys_found}</strong>
+			</td>
+		</tr>
+{!endif}
+	</table>
+	<div style="text-align:center;padding-top:10px;">
+		<input type="submit" name="submit" value="{$LANG_SA00[save]}" />&nbsp;&nbsp;
+		<input type="submit" name="cancel" value="{$LANG_SA00[cancel]}" />
+	</div>
 </form>

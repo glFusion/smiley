@@ -6,7 +6,7 @@
 // |                                                                          |
 // | Implement the glFusion Plugin API                                        |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2014 by the following authors:                        |
+// | Copyright (C) 2009-2017 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -167,7 +167,8 @@ function msg_replaceEmoticons( $text ) {
 
     if ( is_array($arr_smilies) ) {
         foreach ( $arr_smilies AS $smiley ) {
-            $text = str_replace(htmlentities($smiley['code'],ENT_QUOTES,COM_getEncodingt()),'<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$smiley['graphic'].'" alt="'.$smiley['description'].'" title="'.$smiley['description'].'" border="0" />',$text);
+            $text = preg_replace("#(?<=\s|^)" . preg_quote($smiley['code']) . "#",
+                '<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$smiley['graphic'].'" alt="'.$smiley['description'].'" title="'.$smiley['description'].'" border="0" />', $text);
         }
     }
 

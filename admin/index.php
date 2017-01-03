@@ -6,7 +6,7 @@
 // |                                                                          |
 // | Administrative interface                                                 |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2014 by the following authors:                        |
+// | Copyright (C) 2009-2017 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -32,7 +32,7 @@ require_once '../../auth.inc.php';
 
 if (!SEC_inGroup('Root')) {
     // Someone is trying to illegally access this page
-    COM_errorLog("Someone has tried to illegally access the Smiley admin page.  User id: {$_USER['uid']}, Username: {$_USER['username']}, IP: $REMOTE_ADDR",1);
+    COM_errorLog("Someone has tried to access the Smiley admin page.  User id: {$_USER['uid']}, Username: {$_USER['username']}, IP: $REMOTE_ADDR",1);
     $display = COM_siteHeader ('menu', $LANG_ACCESS['accessdenied'])
              . COM_startBlock ($LANG_ACCESS['accessdenied'])
              . $LANG_ACCESS['plugin_access_denied_msg']
@@ -303,20 +303,20 @@ function addSmileySave()
             return array(false,$retval);
         } else {
             $retval = $LANG_SA_ERRORS['successful_add'];
-            $emoticon = COM_stripslashes($_POST['emoticon']);
-            $description = COM_stripslashes($_POST['description']);
+            $emoticon = $_POST['emoticon'];
+            $description = $_POST['description'];
 
             $emoticon1 = '';
             $emoticon2 = '';
             $emoticon3 = '';
             if ( isset($_POST['emoticon1']) && $_POST['emoticon1'] != '' ) {
-                $emoticon1 = COM_stripslashes($_POST['emoticon1']);
+                $emoticon1 = $_POST['emoticon1'];
             }
             if ( isset($_POST['emoticon2']) && $_POST['emoticon2'] != '' ) {
-                $emoticon2 = COM_stripslashes($_POST['emoticon2']);
+                $emoticon2 = $_POST['emoticon2'];
             }
             if ( isset($_POST['emoticon3']) && $_POST['emoticon3'] != '' ) {
-                $emoticon3 = COM_stripslashes($_POST['emoticon3']);
+                $emoticon3 = $_POST['emoticon3'];
             }
 
             $emoticons = array();
@@ -414,21 +414,21 @@ function editSmileySave()
     global $_CONF, $_SA_CONF, $_TABLES, $LANG_ADMIN;
 
     $id          = COM_applyFilter($_POST['id'],true);
-    $emoticon    = COM_stripslashes($_POST['emoticon']);
-    $description = COM_stripslashes($_POST['description']);
+    $emoticon    = $_POST['emoticon'];
+    $description = $_POST['description'];
     $order       = COM_applyFilter($_POST['order'],true);
 
     $emoticon1 = '';
     $emoticon2 = '';
     $emoticon3 = '';
     if ( isset($_POST['emoticon1']) && $_POST['emoticon1'] != '' ) {
-        $emoticon1 = COM_stripslashes($_POST['emoticon1']);
+        $emoticon1 = $_POST['emoticon1'];
     }
     if ( isset($_POST['emoticon2']) && $_POST['emoticon2'] != '' ) {
-        $emoticon2 = COM_stripslashes($_POST['emoticon2']);
+        $emoticon2 = $_POST['emoticon2'];
     }
     if ( isset($_POST['emoticon3']) && $_POST['emoticon3'] != '' ) {
-        $emoticon3 = COM_stripslashes($_POST['emoticon3']);
+        $emoticon3 = $_POST['emoticon3'];
     }
 
     $emoticons = array();
@@ -573,8 +573,8 @@ function saveBatchLoadSmiley()
         foreach ($_POST['import'] as $graphic) {
             $graphic = COM_applyFilter($graphic);
             $index   = str_replace('.','_',$graphic);
-            $code    = COM_stripslashes($_POST['code_' . $index]);
-            $emotion = COM_stripslashes($_POST['emotion_' . $index]);
+            $code    = $_POST['code_' . $index];
+            $emotion = $_POST['emotion_' . $index];
 
             if ( $code == '' ) {
                 $errors .= $LANG_SA_ERRORS['no_graphic'] . ' ('.$graphic.')<br />';
@@ -621,7 +621,7 @@ function SA_msgBox($message)
 {
     $retval = '';
 
-    $retval.= COM_showMessageText($message, false, '', 'info' );
+    $retval.= COM_showMessageText($message, '', false, 'info' );
     return $retval;
 }
 
@@ -802,6 +802,7 @@ switch ( $mode ) {
         break;
     case 'editsave' :
         if ( editSmileySave() == true ) {
+            $display .= SA_msgBox($LANG_SA_ERRORS['successful_add']);
             $display .= listSmiley();
         } else {
             $display .= 'error on edit';

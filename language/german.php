@@ -6,9 +6,7 @@
 // |                                                                          |
 // | german language file by Tony Kluever                                     |
 // +--------------------------------------------------------------------------+
-// | $Id:: english_utf-8.php 4876 2009-08-28 20:35:03Z mevans0263            $|
-// +--------------------------------------------------------------------------+
-// | Copyright (C) 2009 by the following authors:                             |
+// | Copyright (C) 2009-2017 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+

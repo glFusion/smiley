@@ -6,9 +6,7 @@
 // |                                                                          |
 // | This file installs and removes the data structures for the plugin        |
 // +--------------------------------------------------------------------------+
-// | $Id::                                                                   $|
-// +--------------------------------------------------------------------------+
-// | Copyright (C) 2009 by the following authors:                             |
+// | Copyright (C) 2009-2017 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -36,7 +34,7 @@ USES_lib_install();
 
 if (!SEC_inGroup('Root')) {
     // Someone is trying to illegally access this page
-    COM_errorLog("Someone has tried to illegally access the Smiley install/uninstall page.  User id: {$_USER['uid']}, Username: {$_USER['username']}, IP: $REMOTE_ADDR",1);
+    COM_errorLog("Someone has tried to access the Smiley install/uninstall page.  User id: {$_USER['uid']}, Username: {$_USER['username']}, IP: $REMOTE_ADDR",1);
     $display = COM_siteHeader ('menu', $LANG_ACCESS['accessdenied'])
              . COM_startBlock ($LANG_ACCESS['accessdenied'])
              . $LANG_ACCESS['plugin_access_denied_msg']

@@ -6,7 +6,7 @@
 // |                                                                          |
 // | Contains all the SQL necessary to install the Smiley plugin              |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2011 by the following authors:                        |
+// | Copyright (C) 2009-2017 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -31,14 +31,16 @@ if (!defined ('GVERSION')) {
     die ('This file can not be used on its own.');
 }
 
-$_SQL['sa_smiley']  = "CREATE TABLE {$_TABLES['sa_smiley']} (
-  id mediumint(9) NOT NULL AUTO_INCREMENT,
+$_SQL['sa_smiley']  = "
+CREATE TABLE {$_TABLES['sa_smiley']} (
+  id          mediumint(9) NOT NULL AUTO_INCREMENT,
   emoticon    varchar(250) NOT NULL,
   graphic     varchar(250) NOT NULL,
   description varchar(250) NOT NULL,
   display_order int(8) NOT NULL default '0',
   PRIMARY KEY (id)
-) ENGINE=MyISAM;";
+) ENGINE=MyISAM
+";
 
 $_SQLDEFAULTS[0]  = "INSERT INTO {$_TABLES['sa_smiley']} VALUES(1, 'a:1:{i:0;s:7:\":arrow:\";}', 'arrow.gif', 'Arrow', 185);";
 $_SQLDEFAULTS[1]  = "INSERT INTO {$_TABLES['sa_smiley']} VALUES(2, 'a:2:{i:0;s:2:\"B)\";i:1;s:2:\"8)\";}', 'cool.gif', 'Cool', 40);";
