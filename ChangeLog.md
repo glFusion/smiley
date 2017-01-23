@@ -1,5 +1,8 @@
 ChangeLog
 ---------
+## v1.0.10
+  - Fixed error where smiley replacement would crash if the smiley code contained a #
+
 ## v1.0.9
   - Modified emoticon replacement to only replace emoticons surrounded by spaces
   - Set table engine to MyISAM

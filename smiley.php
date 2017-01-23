@@ -31,7 +31,7 @@ if (!defined ('GVERSION')) {
 
 $_SA_CONF['pi_name']           = 'smiley';
 $_SA_CONF['pi_display_name']   = 'Smiley Administration Plugin';
-$_SA_CONF['pi_version']        = '1.0.9';
+$_SA_CONF['pi_version']        = '1.0.10';
 $_SA_CONF['gl_version']        = '1.6.3';
 $_SA_CONF['pi_url']            = 'https://www.glfusion.org';
 

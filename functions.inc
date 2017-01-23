@@ -167,7 +167,7 @@ function msg_replaceEmoticons( $text ) {
 
     if ( is_array($arr_smilies) ) {
         foreach ( $arr_smilies AS $smiley ) {
-            $text = preg_replace("#(?<=\s|^)" . preg_quote($smiley['code']) . "#",
+            $text = preg_replace("#(?<=\s|^)" . preg_quote($smiley['code'],"#") . "#",
                 '<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$smiley['graphic'].'" alt="'.$smiley['description'].'" title="'.$smiley['description'].'" border="0" />', $text);
         }
     }
