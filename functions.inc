@@ -149,6 +149,8 @@ function msg_replaceEmoticons( $text ) {
     global $_CONF, $_SA_CONF, $_TABLES;
 
     static $arr_smilies;
+    static $smiley_array;
+    static $replacement_array;
 
     if ( count($arr_smilies) < 1 ) {
         $arrCount = 0;
@@ -163,15 +165,16 @@ function msg_replaceEmoticons( $text ) {
         if ( count($arr_smilies) > 0 ) {
             @usort($arr_smilies,"SA_cmp");
         }
-    }
 
-    if ( is_array($arr_smilies) ) {
-        foreach ( $arr_smilies AS $smiley ) {
-            $text = preg_replace("#(?<=\s|^)" . preg_quote($smiley['code'],"#") . "#",
-                '<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$smiley['graphic'].'" alt="'.$smiley['description'].'" title="'.$smiley['description'].'" border="0" />', $text);
+        foreach ($arr_smilies AS $smiley) {
+            $smiley_array[] = htmlspecialchars($smiley['code'],ENT_NOQUOTES);
+            $replacement_array[] = '<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$smiley['graphic'].'" alt="'.$smiley['description'].'" title="'.$smiley['description'].'" border="0" />';
         }
-    }
 
+    }
+    if ( is_array($smiley_array) && is_array($replacement_array) ) {
+        $text = str_replace($smiley_array,$replacement_array,$text);
+    }
     return $text;
 }
 
@@ -215,7 +218,8 @@ function msg_restoreEmoticons( $text ) {
 
     if ( is_array($arr_smilies) ) {
         foreach ( $arr_smilies AS $smiley ) {
-            $text = str_replace('<img src="'.$_CONF['site_url'].'/smiley/smiley/'. $smiley['graphic'] . '" alt="'.$smiley['description'].'" title="'.$smiley['description'].'" border="0" />',htmlentities($smiley['code'],ENT_QUOTES,COM_getEncodingt()),$text);
+            $text = str_replace('<img src="'.$_CONF['site_url'].'/smiley/smiley/'. $smiley['graphic'] . '" alt="'.$smiley['description'].'" title="'.$smiley['description'].'" border="0" />',
+                htmlspecialchars($smiley['code'],ENT_NOQUOTES),$text);
         }
     }
     return $text;
