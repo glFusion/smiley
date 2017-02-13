@@ -1,5 +1,8 @@
 ChangeLog
 ---------
+## v1.0.11
+  - Additional refinement of smiley replacement code
+
 ## v1.0.10
   - Fixed error where smiley replacement would crash if the smiley code contained a #
 
