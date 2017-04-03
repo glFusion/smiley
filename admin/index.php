@@ -138,6 +138,7 @@ function ADMIN_getListField_smiley($fieldname, $fieldvalue, $A, $icon_arr)
             } else {
                 $retval = $emoticons;
             }
+            $retval = htmlspecialchars($retval);
             break;
         case 'move' :
             $uplink = '<a href="'.$_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=move&amp;direction=up&amp;id='.$A['id'].'"><img src="'.$_CONF['site_admin_url'].'/plugins/smiley/images/up.png" alt="'.$LANG_SA00['up'].'" /></a>';
@@ -241,24 +242,24 @@ function addSmileySave()
         }
     }
     if (array_search($_POST['emoticon'],$smileys) ) {
-        $eMsg = sprintf($LANG_SA_ERRORS['duplicate_code'],$_POST['emoticon']);
+        $eMsg = sprintf($LANG_SA_ERRORS['duplicate_code'],htmlspecialchars($_POST['emoticon']));
         return array(false,$eMsg);
     }
     if ( isset($_POST['emoticon1']) && $_POST['emoticon1'] != '' ) {
         if (array_search($_POST['emoticon1'],$smileys) ) {
-            $eMsg = sprintf($LANG_SA_ERRORS['duplicate_code'],$_POST['emoticon1']);
+            $eMsg = sprintf($LANG_SA_ERRORS['duplicate_code'],htmlspecialchars($_POST['emoticon1']));
             return array(false,$eMsg);
         }
     }
     if ( isset($_POST['emoticon2']) && $_POST['emoticon2'] != '' ) {
         if (array_search($_POST['emoticon2'],$smileys) ) {
-            $eMsg = sprintf($LANG_SA_ERRORS['duplicate_code'],$_POST['emoticon2']);
+            $eMsg = sprintf($LANG_SA_ERRORS['duplicate_code'],htmlspecialchars($_POST['emoticon2']));
             return array(false,$eMsg);
         }
     }
     if ( isset($_POST['emoticon3']) && $_POST['emoticon3'] != '' ) {
         if (array_search($_POST['emoticon3'],$smileys) ) {
-            $eMsg = sprintf($LANG_SA_ERRORS['duplicate_code'],$_POST['emoticon3']);
+            $eMsg = sprintf($LANG_SA_ERRORS['duplicate_code'],htmlspecialchars($_POST['emoticon3']));
             return array(false,$eMsg);
         }
     }
@@ -331,7 +332,9 @@ function addSmileySave()
                 $emoticons[] = $emoticon3;
             }
 
-            $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".DB_escapeString($filename)."', emoticon='".DB_escapeString(serialize($emoticons))."', description='".DB_escapeString($description)."'";
+            $display_order = (int) COM_applyFilter($_POST['order'],true);
+
+            $sql = "INSERT INTO {$_TABLES['sa_smiley']} SET graphic='".DB_escapeString($filename)."', emoticon='".DB_escapeString(serialize($emoticons))."', description='".DB_escapeString($description)."', display_order=".$display_order;
             DB_query($sql);
         }
     }
