@@ -51,6 +51,8 @@ function listSmiley()
     $retval = '';
 
     $menu_arr = array (
+        array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php',
+              'text' => $LANG_SA00['smiley_list'], 'active' => true),
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=add',
               'text' => $LANG_SA00['add_smiley']),
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=import',
@@ -113,13 +115,18 @@ function listSmiley()
 
 function ADMIN_getListField_smiley($fieldname, $fieldvalue, $A, $icon_arr)
 {
-    global $_CONF, $_SA_CONF, $LANG_SA00, $LANG_ADMIN;
+    global $_CONF, $_SA_CONF, $LANG_SA00, $LANG_ADMIN, $_SYSTEM;
 
     $retval = '';
 
     switch ($fieldname) {
         case 'edit':
+            if ( $_SYSTEM['framework'] == 'uikit' ) {
+                $retval = '<a href="'.$_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=edit&amp;id='.$A['id'].'" title="'.$LANG_ADMIN['edit'].'"><i class="uk-icon uk-icon-hover uk-icon-justify uk-icon-edit"></i></a>';
+            } else {
+                $attr['title'] = $LANG_ADMIN['edit'];
             $retval = COM_createLink($icon_arr['edit'], $_CONF['site_admin_url'].'/plugins/smiley/index.php?mode=edit&amp;id='.$A['id']);
+            }
             break;
         case 'graphic' :
             $retval = '<img src="'.$_CONF['site_url'].'/smiley/smiley/'.$fieldvalue.'" alt="'.$A['description'].'" title="'.$A['description'].'" />';
@@ -162,6 +169,8 @@ function addSmiley()
     $menu_arr = array (
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php',
               'text' => $LANG_SA00['smiley_list']),
+        array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=add',
+              'text' => $LANG_SA00['add_smiley'],'active' => true),
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=import',
               'text' => $LANG_SA00['batch_load']),
         array('url' => $_CONF['site_admin_url'],
@@ -359,6 +368,8 @@ function editSmiley($id)
     $menu_arr = array (
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php',
               'text' => $LANG_SA00['smiley_list']),
+        array('url' => '#',
+              'text' => $LANG_ADMIN['edit'], 'active' => true),
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=import',
               'text' => $LANG_SA00['batch_load']),
         array('url' => $_CONF['site_admin_url'],
@@ -468,6 +479,10 @@ function batchLoadSmiley()
     $menu_arr = array (
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php',
               'text' => $LANG_SA00['smiley_list']),
+        array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=add',
+              'text' => $LANG_SA00['add_smiley']),
+        array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=import',
+              'text' => $LANG_SA00['batch_load'],'active'=>true),
         array('url' => $_CONF['site_admin_url'],
               'text' => $LANG_ADMIN['admin_home'])
     );
@@ -624,7 +639,7 @@ function SA_msgBox($message)
 {
     $retval = '';
 
-    $retval.= COM_showMessageText($message, '', false, 'info' );
+    $retval.= COM_showMessageText($message, '', false, 'error' );
     return $retval;
 }
 
