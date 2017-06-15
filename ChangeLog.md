@@ -1,5 +1,8 @@
 ChangeLog
 ---------
+## v1.0.13
+  - Minor UI updates
+
 ## v1.0.12
   - Fixed order not being saved on new smiley
   - Fixed where some codes did not display in error messages or on the list
