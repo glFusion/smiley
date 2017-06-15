@@ -1,25 +1,25 @@
-<form action="{form_action_url}" method="post">
+<form class="uk-form uk-form-horizontal" action="{form_action_url}" method="post">
 	<input type="hidden" name="mode" value="importsave" />
-	<table class="admin-list-table">
-		<tr style="background:#FFFFFF;">
-			<th class="admin-list-headerfield" >{$LANG_SA00[import]}</th>
-			<th class="admin-list-headerfield" >{$LANG_SA00[graphic]}</th>
-			<th class="admin-list-headerfield" >{$LANG_SA00[code]}</th>
-			<th class="admin-list-headerfield" >{$LANG_SA00[description]}</th>
+	<table class="uk-table uk-table-hover admin-list-table">
+		<tr>
+			<th class="uk-text-center">{$LANG_SA00[import]}</th>
+			<th class="uk-text-center">{$LANG_SA00[graphic]}</th>
+			<th>{$LANG_SA00[code]}</th>
+			<th>{$LANG_SA00[description]}</th>
 		</tr>
 <!-- BEGIN importrow -->
-		<tr class="pluginRow{class}" onmouseover="className='pluginRollOver';" onmouseout="className='pluginRow{class}';">
-			<td class="admin-list-field">
+		<tr>
+			<td class="uk-text-center">
 				<input type="checkbox" name="import[]" value="{graphic}" />
 			</td>
-			<td class="admin-list-field">
+			<td class="uk-text-center">
 				<img src="{site_url}/smiley/preview.php?f={graphic}" alt="{graphic}" title="{graphic}" />
 			</td>
 			<td class="admin-list-field">
-				<input type="text" name="code_{index}" value="" size="10" maxlength="10" />
+				<input class="uk-form-width-small" type="text" name="code_{index}" value="" maxlength="10" />
 			</td>
 			<td class="admin-list-field">
-				<input type="text" name="emotion_{index}" value="" size="10" maxlength="200" />
+				<input class="uk-form-width-medium" type="text" name="emotion_{index}" value="" maxlength="200" />
 			</td>
 		</tr>
 <!-- END importrow -->
@@ -32,7 +32,7 @@
 {!endif}
 	</table>
 	<div style="text-align:center;padding-top:10px;">
-		<input type="submit" name="submit" value="{$LANG_SA00[save]}" />&nbsp;&nbsp;
-		<input type="submit" name="cancel" value="{$LANG_SA00[cancel]}" />
+		<button class="uk-button uk-button-primary" type="submit" name="submit" value="{$LANG_SA00[save]}">{$LANG_SA00[save]}</button>
+		<button class="uk-button" type="submit" name="cancel" value="{$LANG_SA00[cancel]}">{$LANG_SA00[cancel]}</button>
 	</div>
 </form>
