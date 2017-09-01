@@ -148,11 +148,11 @@ function plugin_templatesetvars_smiley($ctype, &$template)
 function msg_replaceEmoticons( $text ) {
     global $_CONF, $_SA_CONF, $_TABLES;
 
-    static $arr_smilies;
-    static $smiley_array;
-    static $replacement_array;
+    static $arr_smilies = array();
+    static $smiley_array = array();
+    static $replacement_array = array();
 
-    if ( count($arr_smilies) < 1 ) {
+    if ( is_array($arr_smilies) && count($arr_smilies) < 1 ) {
         $arrCount = 0;
         $sql = DB_query("SELECT emoticon,graphic,description FROM {$_TABLES['sa_smiley']}");
         while ( list($emoticon,$graphic,$description) = DB_fetchArray($sql)) {

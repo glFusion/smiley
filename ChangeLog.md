@@ -1,5 +1,9 @@
 ChangeLog
 ---------
+## v1.1.0
+  - Support glFusion's class auto loader
+  - Updates to support PHP v7.2
+
 ## v1.0.13
   - Minor UI updates
 
