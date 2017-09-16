@@ -1,11 +1,10 @@
 ChangeLog
 ---------
 ## v1.1.0
+  - Support glFusion v1.7.0 active menu feature
   - Support glFusion's class auto loader
   - Updates to support PHP v7.2
-
-## v1.0.13
-  - Minor UI updates
+  - Style import screen to use new UIKIT styles
 
 ## v1.0.12
   - Fixed order not being saved on new smiley
