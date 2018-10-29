@@ -1,4 +1,4 @@
-ChangeLog
+# Smiley Plugin ChangeLog
 ---------
 ## v1.1.0
   - Support glFusion v1.7.0 active menu feature
