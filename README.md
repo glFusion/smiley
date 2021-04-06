@@ -1,25 +1,25 @@
-## Smiley Plugin for glFusion
+# Smiley Plugin for glFusion
 
 For the latest documentation, please see
 
-	https://www.glfusion.org/wiki/glfusion:plugins:smiley:start
+ [Smiley Wiki](https://www.glfusion.org/wiki/glfusion:plugins:smiley:start)
 
-### Overview
+## Overview
 
 The Smiley plugin allows you to easily manage emoticons that can be used by other plugins in the glFusion family.
 
-### Usage
+## Usage
 
 The Smiley plugin doesn't do much on its own, other than let you easily add, modify, and delete smileys.  Other plugins must support using the Smiley plugin in order to use the smileys.  At this time, the Forum plugin will use
 the smileys managed by this plugin.
 
-### Forum Integration:
+## Forum Integration
 
 To enable the Forum plugin to use the Smiley plugin, go into Command & Control, Configuration, Forum, then set **Smilies Plugin Installed** to True.
 
 The upcoming release of the PM (Private Message) plugin will also use the Smiley plugin to enable adding smileys to your messages.
 
-### Adding Smileys
+## Adding Smileys
 
 There are two methods to add new smileys to the library:
 
@@ -30,24 +30,23 @@ to the private/plugins/smiley/batchload/ directory.
 
 You will then select the smileys to import and specify their code and emotion. The icons will be copied to the public_html/smiley folder and added to the smiley library.
 
-### Deleting Smileys
+## Deleting Smileys
 
 You can delete a smiley from the List Smiley Admin screen. Simply select the
 X icon.
 
-### Configuration
+## Configuration
 
 There are no configuration options for this plugin.
 
-
-### Installation
+## Installation
 
 The Smiley Plugin uses the glFusion automated plugin installer. Simply upload the distribution using the glFusion plugin installer located in the Plugin Administration page.
 
-### Upgrading
+## Upgrading
 
 The upgrade process is identical to the installation process, simply upload the distribution from the Plugin Administration page.
 
-### License
+## License
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
