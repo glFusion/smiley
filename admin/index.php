@@ -6,7 +6,7 @@
 // |                                                                          |
 // | Administrative interface                                                 |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2017 by the following authors:                        |
+// | Copyright (C) 2009-2021 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -57,7 +57,7 @@ function listSmiley()
               'text' => $LANG_SA00['add_smiley']),
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=import',
               'text' => $LANG_SA00['batch_load']),
-        array('url' => $_CONF['site_admin_url'],
+        array('url' => $_CONF['site_admin_url'].'/index.php',
               'text' => $LANG_ADMIN['admin_home'])
     );
 
@@ -173,7 +173,7 @@ function addSmiley()
               'text' => $LANG_SA00['add_smiley'],'active' => true),
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=import',
               'text' => $LANG_SA00['batch_load']),
-        array('url' => $_CONF['site_admin_url'],
+        array('url' => $_CONF['site_admin_url'].'/index.php',
               'text' => $LANG_ADMIN['admin_home'])
     );
 
@@ -372,7 +372,7 @@ function editSmiley($id)
               'text' => $LANG_ADMIN['edit'], 'active' => true),
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=import',
               'text' => $LANG_SA00['batch_load']),
-        array('url' => $_CONF['site_admin_url'],
+        array('url' => $_CONF['site_admin_url'].'/index.php',
               'text' => $LANG_ADMIN['admin_home'])
     );
 
@@ -483,7 +483,7 @@ function batchLoadSmiley()
               'text' => $LANG_SA00['add_smiley']),
         array('url' => $_CONF['site_admin_url'] . '/plugins/smiley/index.php?mode=import',
               'text' => $LANG_SA00['batch_load'],'active'=>true),
-        array('url' => $_CONF['site_admin_url'],
+        array('url' => $_CONF['site_admin_url'].'/index.php',
               'text' => $LANG_ADMIN['admin_home'])
     );
 
