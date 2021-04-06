@@ -116,14 +116,25 @@ function plugin_templatesetvars_smiley($ctype, &$template)
         $smileyArray[] = $row;
     }
     $retval .=  'smiley_descriptions : [';
+    $first = 1;
     foreach ($smileyArray AS $smiley) {
-        $retval .= "'" . $smiley['description'] . "',";
+        if ($first == 0) {
+            $retval .= ',';
+        }
+        $emoticonArray = unserialize($smiley['emoticon']);
+        $retval .= "'" . $emoticonArray[0] . "'";
+        $first = 0;
     }
     $retval .= '],' . LB;
 
+    $first = 1;
     $retval .= 'smiley_images : [';
     foreach ($smileyArray AS $smiley) {
-        $retval .= "'" . $smiley['graphic'] . "',";
+        if ($first == 0) {
+            $retval .= ',';
+        }
+        $retval .= "'" . $smiley['graphic'] . "'";
+        $first = 0;
     }
     $retval .= '],' . LB;
     $retval .= "smiley_path : '";
@@ -152,6 +163,15 @@ function msg_replaceEmoticons( $text ) {
     static $smiley_array = array();
     static $replacement_array = array();
 
+    preg_match_all("/\[\w+:[^\]]*\]/", $text, $matches);
+    $counter = 0;
+    $queue = array();
+    foreach($matches[0] AS $match) {
+        $text = str_replace($match,"##".$counter."##",$text);
+        $queue[$counter] = $match;
+        $counter++;
+    }
+
     if ( is_array($arr_smilies) && count($arr_smilies) < 1 ) {
         $arrCount = 0;
         $sql = DB_query("SELECT emoticon,graphic,description FROM {$_TABLES['sa_smiley']}");
@@ -175,6 +195,11 @@ function msg_replaceEmoticons( $text ) {
     if ( is_array($smiley_array) && is_array($replacement_array) ) {
         $text = str_replace($smiley_array,$replacement_array,$text);
     }
+
+    foreach($queue AS $counter => $rpl) {
+        $text = str_replace("##".$counter."##",$rpl, $text);
+    }
+
     return $text;
 }
 
