@@ -33,7 +33,7 @@ global $_DB_table_prefix, $_TABLES;
 
 $_SA_CONF['pi_name']           = 'smiley';
 $_SA_CONF['pi_display_name']   = 'Smiley Administration Plugin';
-$_SA_CONF['pi_version']        = '1.1.1';
+$_SA_CONF['pi_version']        = '1.1.2';
 $_SA_CONF['gl_version']        = '1.7.0';
 $_SA_CONF['pi_url']            = 'https://www.glfusion.org';
 
