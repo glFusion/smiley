@@ -1,5 +1,10 @@
 # Smiley Plugin ChangeLog
 
+## v1.1.2
+
+- Czech translation
+- glFusion LTS and v2 Support
+
 ## v1.1.1
 
 - Fixed undefined variable issue when re-enabling plugin
