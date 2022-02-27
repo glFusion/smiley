@@ -45,6 +45,14 @@ if (file_exists ($langfile)) {
     require_once $_CONF['path'].'plugins/smiley/language/english.php';
 }
 
+if (version_compare(GVERSION,'2.0.0','lt')) {
+    if (isset($LANG_configSelect['smiley']) && !isset($LANG_configselects['smiley'])) {
+        foreach ($LANG_configSelect['smiley'] AS $cfgItem) {
+            $LANG_configselects['smiley'][] = array_flip($cfgItem);
+        }
+    }
+}
+
 function plugin_chkVersion_smiley() {
     global $_SA_CONF;
 
